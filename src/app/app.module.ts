@@ -33,10 +33,11 @@ const ROUTES = [
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(ROUTES),
+    RouterModule.forRoot(ROUTES)
+  ],
+  providers: [
     SocketService
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
