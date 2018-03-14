@@ -1,11 +1,11 @@
-const vm = require('./votemanager');
+const vm = require('./lobbymanager');
 
 class WSHandler {
   static initialise(socket) {
 
     // Join lobby event. Checks if the requested lobby exists
     // and if so joins that socket to a room with the same id
-    // as the vote
+    // as the lobby
     socket.on('join lobby', msg => {
       if (vm.getLobbyByID(msg.id)) {
         socket.emit('join lobby', true);
@@ -16,9 +16,9 @@ class WSHandler {
       }
     });
 
-    // Responds to the question if a vote with a specific id exists
-    socket.on('vote exists', msg => {
-      socket.emit('vote exists', (vm.getLobbyByID(msg.id) !== null));
+    // Responds to the question if a lobby with a specific id exists
+    socket.on('lobby exists', msg => {
+      socket.emit('lobby exists', (vm.getLobbyByID(msg.id) !== null));
     });
   }
 }

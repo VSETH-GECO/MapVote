@@ -13,20 +13,20 @@ class Answer {
 })
 export class AppComponent {
   title = 'Map Vote';
-  @Input() voteID: string;
+  @Input() lobbyID: string;
 
   constructor(private http: HttpClient, private router: Router) {
 
   }
 
   joinLobby() {
-    console.log(this.voteID);
+    console.log(this.lobbyID);
 
-    this.http.get<Answer>('/api/vote/' + this.voteID).subscribe(ans => {
+    this.http.get<Answer>('/api/lobby/' + this.lobbyID).subscribe(ans => {
       if (ans.exists) {
-        this.router.navigate(['/vote/' + this.voteID]);
+        this.router.navigate(['/lobby/' + this.lobbyID]);
       } else {
-        alert('Invalid vote id!');
+        alert('Invalid lobby id!');
       }
     });
   }

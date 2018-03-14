@@ -7,7 +7,7 @@ import { HttpClientModule } from "@angular/common/http";
 
 import { AppComponent } from './app.component';
 import { CreatorComponent } from './creator/creator.component';
-import { VoteComponent } from './vote/vote.component';
+import { LobbyComponent } from './lobby/lobby.component';
 
 import { SocketService } from "./socket.service";
 
@@ -22,8 +22,8 @@ const ROUTES = [
     component: CreatorComponent
   },
   {
-    path: 'vote/:id',
-    component: VoteComponent
+    path: 'lobby/:id',
+    component: LobbyComponent
   }
 ];
 
@@ -31,7 +31,7 @@ const ROUTES = [
   declarations: [
     AppComponent,
     CreatorComponent,
-    VoteComponent
+    LobbyComponent
   ],
   imports: [
     BrowserModule,

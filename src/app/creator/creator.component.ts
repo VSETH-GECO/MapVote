@@ -82,8 +82,8 @@ export class CreatorComponent implements OnInit {
   }
 
   createLobby() {
-    this.http.post<Answer>('/api/vote', {game: this.selectedGame, mode: this.selectedMode}, httpOptions).subscribe(ans => {
-      this.router.navigate(['/vote/' + ans.id]);
+    this.http.post<Answer>('/api/lobby', {game: this.selectedGame, mode: this.selectedMode}, httpOptions).subscribe(ans => {
+      this.router.navigate(['/lobby/' + ans.id]);
     },
     err => {
       console.log(err);

@@ -1,7 +1,7 @@
 class Lobby {
 }
 
-class VoteManager {
+class LobbyManager {
   /**
    * Will setup all the static variables needed for this class to function
    * like a real class and not the js bs that calls itself that...
@@ -9,10 +9,10 @@ class VoteManager {
    * Only invoke once or all data stored will be lost!!!
    */
   static initialise() {
-    VoteManager.lobbies = [];
+    LobbyManager.lobbies = [];
   }
 
-  static createNewVote(game, mode) {
+  static createNewLobby(game, mode) {
     let lobby = new Lobby();
 
     lobby.id = require('crypto').randomBytes(8).toString('hex');
@@ -26,7 +26,7 @@ class VoteManager {
 
   static getLobbyByID(id) {
     let found = null;
-    VoteManager.lobbies.forEach(lobby => {
+    LobbyManager.lobbies.forEach(lobby => {
       if (lobby.id === id) {
         found = lobby;
       }
@@ -36,4 +36,4 @@ class VoteManager {
   }
 }
 
-module.exports = VoteManager;
+module.exports = LobbyManager;

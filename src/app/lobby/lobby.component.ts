@@ -3,11 +3,11 @@ import { ActivatedRoute } from "@angular/router";
 import { SocketService } from "../socket.service";
 
 @Component({
-  selector: 'app-vote',
-  templateUrl: './vote.component.html',
-  styleUrls: ['./vote.component.css']
+  selector: 'app-lobby',
+  templateUrl: './lobby.component.html',
+  styleUrls: ['./lobby.component.css']
 })
-export class VoteComponent implements OnInit {
+export class LobbyComponent implements OnInit {
   successMessage: string;
 
   constructor(private socket: SocketService, private route: ActivatedRoute) {

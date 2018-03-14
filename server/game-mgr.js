@@ -13,7 +13,7 @@ class GameManager {
     return games[game].maps;
   }
 
-  static getCompletInfo() {
+  static getCompleteInfo() {
     return games;
   }
 }

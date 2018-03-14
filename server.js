@@ -4,7 +4,7 @@ const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
 const socket = require('socket.io');
-const vm = require('./server/votemanager');
+const vm = require('./server/lobbymanager');
 const wsh = require('./server/ws-handler');
 
 // Get our API routes
