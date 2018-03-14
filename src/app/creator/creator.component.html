@@ -1,3 +1,17 @@
-<p>
-  creator works!
-</p>
+<div>
+  <h1>Creating a new vote lobby</h1>
+
+  <div *ngIf="stage==0">
+    <p>Select a game:</p>
+    <ul>
+      <li *ngFor="let game of games" (click)="selectGame(game)">{{game.name}}</li>
+    </ul>
+  </div>
+
+  <div *ngIf="stage == 1">
+    <p>Select a voting mode:</p>
+    <ul>
+      <li *ngFor="let mode of modes" (click)="selectMode(mode)">{{mode.name}}</li>
+    </ul>
+  </div>
+</div>
