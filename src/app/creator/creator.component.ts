@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {Router} from "@angular/router";
 
 class Game {
   maps: string[];
@@ -7,6 +8,13 @@ class Game {
 class Mode {
   name: string;
 }
+class Answer {
+  id: string;
+}
+
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
 @Component({
   selector: 'app-creator',
@@ -50,27 +58,36 @@ export class CreatorComponent implements OnInit {
   games: string[];
   stage: number;
 
-  constructor(private http: HttpClient) { }
+  selectedGame: string;
+  selectedMode: string;
+
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.stage = 0;
-    this.http.get<string[]>(window.location.origin + '/api/games').subscribe(ans => {
+    this.http.get<string[]>('/api/games').subscribe(ans => {
       this.games = ans;
       console.log(this.games);
     });
   }
 
   selectGame(game) {
-    console.log('Game:', game);
+    this.selectedGame = game;
     this.stage = 1;
   }
 
   selectMode(mode) {
-    console.log('Mode', mode);
+    this.selectedMode = mode.name;
     this.stage = 2;
   }
 
   createLobby() {
-    // TODO
+    this.http.post<Answer>('/api/vote', {game: this.selectedGame, mode: this.selectedMode}, httpOptions).subscribe(ans => {
+      this.router.navigate(['/vote/' + ans.id]);
+    },
+    err => {
+      console.log(err);
+      alert('Something went wrong!');
+    });
   }
 }
