@@ -7,6 +7,12 @@ export class SocketService {
     path: '/socket'
   });
 
+  /**
+   * Sends a message over the socket.
+   *
+   * @param {string} label for the message
+   * @param data content of the message
+   */
   public send(label: string, data: any) {
     this.socket.emit(label, data);
   }
@@ -15,10 +21,10 @@ export class SocketService {
    * Subscribes to a specified socket event and executes the
    * given function fn.
    *
-   * @param {string} str name of the event
+   * @param {string} label of the event
    * @param {(msg) => void} fn to be executed
    */
-  public subscribeTo(str: string, fn: (msg) => void) {
-    this.socket.on(str, msg => fn(msg));
+  public subscribeTo(label: string, fn: (msg) => void) {
+    this.socket.on(label, msg => fn(msg));
   }
 }
