@@ -22,7 +22,7 @@ export class AppComponent {
   joinLobby() {
     console.log(this.voteID);
 
-    this.http.get<Answer>(window.location.origin + '/api/vote/' + this.voteID).subscribe(ans => {
+    this.http.get<Answer>('/api/vote/' + this.voteID).subscribe(ans => {
       if (ans.exists) {
         this.router.navigate(['/vote/' + this.voteID]);
       } else {
