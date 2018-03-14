@@ -3,11 +3,22 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+const socket = require('socket.io');
+const vm = require('./server/votemanager');
+const wsh = require('./server/ws-handler');
 
 // Get our API routes
 const api = require('./server/routes/api');
-
 const app = express();
+
+const server = http.createServer(app);
+
+/**
+ * listen for ws connections on /socket
+ */
+const io = socket(server, {
+  path: '/socket'
+});
 
 // Parsers for POST data
 app.use(bodyParser.json());
@@ -33,9 +44,21 @@ const port = process.env.PORT || '3000';
 app.set('port', port);
 
 /**
- * Create HTTP server.
+ * WebSocket implementation
  */
-const server = http.createServer(app);
+io.on('connection', socket => {
+  // Get information about (dis-)connects
+  const addr = socket.request.connection.remoteAddress;
+  console.log('Connected:', addr);
+  socket.on('disconnect', () => {
+    console.log('Disconnected:', addr);
+  });
+
+  // Give the handling of connected sockets to the handler
+  wsh.initialise(socket);
+});
+
+vm.initialise();
 
 /**
  * Listen on provided port, on all network interfaces.
