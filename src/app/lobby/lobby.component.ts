@@ -9,6 +9,7 @@ import { SocketService } from "../socket.service";
 })
 export class LobbyComponent implements OnInit {
   successMessage: string;
+  selectTeam: boolean;
 
   constructor(private socket: SocketService, private route: ActivatedRoute) {
     // Request to join the lobby with the id from the url
@@ -18,13 +19,26 @@ export class LobbyComponent implements OnInit {
     this.socket.subscribeTo('join lobby', msg => {
       if (msg) {
         this.successMessage = 'Joined lobby!';
+        this.selectTeam = true;
       } else {
         alert('No lobby with this id exists!');
       }
-    })
+    });
+
+    // Listen if team join was successful
+    this.socket.subscribeTo('join team', msg => {
+      if (msg) {
+        this.selectTeam = false;
+      } else {
+        alert('Could not join team');
+      }
+    });
   }
 
   ngOnInit() {
   }
 
+  joinTeam(team: number) {
+    this.socket.send('join team', {team: team});
+  }
 }

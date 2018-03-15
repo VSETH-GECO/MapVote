@@ -1,3 +1,8 @@
 <p>
   {{successMessage}}
 </p>
+
+<div *ngIf="selectTeam">
+  <a (click)="joinTeam(0)">Join Team A</a> <br>
+  <a (click)="joinTeam(1)">Join Team B</a>
+</div>
