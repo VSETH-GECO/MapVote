@@ -4,14 +4,14 @@
   <div *ngIf="stage==0">
     <p>Select a game:</p>
     <ul>
-      <li *ngFor="let game of games" (click)="selectGame(game)">{{game}}</li>
+      <li *ngFor="let game of gameNames" (click)="selectGame(game)">{{game}}</li>
     </ul>
   </div>
 
   <div *ngIf="stage == 1">
     <p>Select a voting mode:</p>
     <ul>
-      <li *ngFor="let mode of modes" (click)="selectMode(mode)"><a>{{mode.name}}</a></li>
+      <li *ngFor="let mode of games[selectedGame].modes" (click)="selectMode(mode)"><a>{{mode}}</a></li>
     </ul>
   </div>
 

@@ -1,4 +1,28 @@
 class Lobby {
+  constructor() {
+    this.teamA = [];
+    this.teamB = [];
+  }
+
+  joinTeamA(id) {
+    if (this.teamA.indexOf(id) > -1) {
+      this.teamA.push(id);
+    }
+    if (this.teamB.contains(id)) {
+      this.teamB.remove(id);
+    }
+  }
+
+  joinTeamB(id) {
+    if (!this.teamB.contains(id)) {
+      this.teamB.push(id);
+    }
+    if (this.teamA.contains(id)) {
+      this.teamA.remove(id);
+    }
+  }
+
+
 }
 
 class LobbyManager {

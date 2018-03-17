@@ -7,11 +7,11 @@ gmgr.initialise();
 
 /* GET api listing. */
 router.get('/', (req, res) => {
-  res.send('api works');
+  res.status(200).send('api works');
 });
 
 router.post('/lobby', (req, res) => {
-  const id = vm.createNewLobby('ow', 'ping-pong');
+  const id = vm.createNewLobby(req.params.game, req.params.mode);
   res.status(200).json({id: id});
 });
 
@@ -26,14 +26,15 @@ router.get('/games', (req, res) => {
 });
 
 router.get('/game/:game', (req, res) => {
-  let maps;
+  let game;
+
   if (req.params.game === 'all') {
-    maps = gmgr.getCompleteInfo();
+    game = gmgr.getAllGamesInfo();
   } else {
-    maps = gmgr.getMapsForGame(req.params.game);
+    game = gmgr.getInfoForGame(req.params.game);
   }
 
-  res.status(200).json(maps);
+  res.status(200).json(game);
 });
 
 module.exports = router;

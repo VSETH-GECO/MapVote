@@ -2,7 +2,6 @@
   "Overwatch": {
     "maps": [
       "Blizzard World",
-      "Château Guillard",
       "Dorado",
       "Eichenwalde",
       "Hanamura",
@@ -18,6 +17,9 @@
       "Temple of Anubis",
       "Volskaya Industries",
       "Watchpoint: Gibraltar"
+    ],
+    "modes": [
+      "Best of 1"
     ]
   },
   "Counter Strike: GO": {
@@ -29,6 +31,10 @@
       "Nuke",
       "Overpass",
       "Train"
+    ],
+    "modes": [
+      "Best of 1",
+      "Best of 3"
     ]
   }
 }

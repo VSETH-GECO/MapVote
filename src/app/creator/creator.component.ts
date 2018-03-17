@@ -4,10 +4,9 @@ import {Router} from "@angular/router";
 
 class Game {
   maps: string[];
+  modes: string[];
 }
-class Mode {
-  name: string;
-}
+
 class Answer {
   id: string;
 }
@@ -22,41 +21,9 @@ const httpOptions = {
   styleUrls: ['./creator.component.css']
 })
 export class CreatorComponent implements OnInit {
-  /* games: Game[] = [
-    {
-      name: 'Overwatch',
-      maps: [
-        {name: 'Château Guillard'},
-        {name: 'Dorado'},
-        {name: 'Eichenwalde'},
-        {name: 'Hanamura'},
-        {name: 'Hollywood'},
-        {name: 'Horizon Lunar Colony'},
-        {name: 'Ilios'},
-        {name: 'King\'s Row'},
-        {name: 'Lijiang Tower'},
-        {name: 'Nepal'},
-        {name: 'Numbani'},
-        {name: 'Oasis'},
-        {name: 'Route 66'},
-        {name: 'Temple of Anubis'},
-        {name: 'Volskaya Industries'},
-        {name: 'Watchpoint: Gibraltar'}
-        ]
-    },
-    {
-      name: 'Counter Strike: GO',
-      maps: [
-        {name: 'Flashpoint'},
-        {name: 'Test 1'}
-        ]
-    }
-  ]; */
-  modes: Mode[] = [
-    {name: "ping-pong"},
-  ];
-  games: string[];
+  games: Game[];
   stage: number;
+  gameNames: string[];
 
   selectedGame: string;
   selectedMode: string;
@@ -64,10 +31,12 @@ export class CreatorComponent implements OnInit {
   constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
-    this.stage = 0;
-    this.http.get<string[]>('/api/games').subscribe(ans => {
+    this.http.get<Game[]>('/api/game/all').subscribe(ans => {
       this.games = ans;
       console.log(this.games);
+      this.gameNames = Object.keys(ans);
+      console.log(this.gameNames);
+      this.stage = 0;
     });
   }
 
@@ -77,12 +46,12 @@ export class CreatorComponent implements OnInit {
   }
 
   selectMode(mode) {
-    this.selectedMode = mode.name;
+    this.selectedMode = mode;
     this.stage = 2;
   }
 
   createLobby() {
-    this.http.post<Answer>('/api/lobby', {game: this.selectedGame, mode: this.selectedMode}, httpOptions).subscribe(ans => {
+    this.http.post<{id: string}>('/api/lobby', {game: this.selectedGame, mode: this.selectedMode}, httpOptions).subscribe(ans => {
       this.router.navigate(['/lobby/' + ans.id]);
     },
     err => {

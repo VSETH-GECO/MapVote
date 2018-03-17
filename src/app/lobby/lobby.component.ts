@@ -10,10 +10,13 @@ import { SocketService } from "../socket.service";
 export class LobbyComponent implements OnInit {
   successMessage: string;
   selectTeam: boolean;
+  id: string;
 
   constructor(private socket: SocketService, private route: ActivatedRoute) {
+    this.id = this.route.snapshot.params['id'];
+
     // Request to join the lobby with the id from the url
-    this.socket.send('join lobby', {id: this.route.snapshot.params['id']});
+    this.socket.send('join lobby', {id: this.id});
 
     // Listen if join request was accepted or denied
     this.socket.subscribeTo('join lobby', msg => {
@@ -39,6 +42,6 @@ export class LobbyComponent implements OnInit {
   }
 
   joinTeam(team: number) {
-    this.socket.send('join team', {team: team});
+    this.socket.send('join team', {id: this.id, team: 'a'});
   }
 }

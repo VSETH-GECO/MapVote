@@ -9,11 +9,10 @@ class GameManager {
     return GameManager.onlyGames;
   }
 
-  static getMapsForGame(game) {
-    return games[game].maps;
+  static getInfoForGame(game) {
+    return games[game];
   }
-
-  static getCompleteInfo() {
+  static getAllGamesInfo() {
     return games;
   }
 }
